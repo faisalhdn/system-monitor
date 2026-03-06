@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_system_monitor_FILE /home/sroeunchamroeunphal-huon/projects/system-monitor/system-monitor/build/system_monitor)
-set(__QT_DEPLOY_TARGET_system_monitor_TYPE EXECUTABLE)
