@@ -14,9 +14,26 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 qt_standard_project_setup()
 
-qt_add_executable(system_monitor
+set(SYSTEM_MONITOR_SOURCES
     src/main.cpp
+    src/core/CpuMonitorService.cpp
 )
+
+if(WIN32)
+    list(APPEND SYSTEM_MONITOR_SOURCES
+        src/platform/windows/WindowsCpuReader.cpp
+    )
+elseif(UNIX AND NOT APPLE)
+    list(APPEND SYSTEM_MONITOR_SOURCES
+        src/platform/linux/LinuxCpuReader.cpp
+    )
+endif()
+
+qt_add_executable(system_monitor
+    ${SYSTEM_MONITOR_SOURCES}
+)
+
+target_include_directories(system_monitor PRIVATE src)
 
 if(MSVC)
     target_compile_options(system_monitor PRIVATE /permissive- /Zc:__cplusplus /W4 /WX)
